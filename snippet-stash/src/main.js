@@ -5,8 +5,30 @@ const { invoke } = window.__TAURI__.core;
 const fileNameInput = document.getElementById("filename-input");
 const contentInput = document.getElementById("content-input");
 const saveBtn = document.getElementById("save-btn");
+const snippetList = document.getElementById("snippet-list")
 
-// 2. add the click listener
+// 2. Define the function to fetch and display snippets
+async function loadSnippets() {
+    // call the rust command
+    // Rust returns a Vec<String>, which becomes a JS array
+    const snippets = await invoke("list_snippets");
+
+    // clear the current list to avoid duplicate
+    snippetList.innerHTML = "";
+
+    // loop through the array and create list items
+    snippets.forEach(name => {
+        const li = document.createElement("li");
+        li.textContent = name;
+
+        // Styling hint: make it look clickable 
+        li.style.cursor = "pointer";
+        li.style.padding = "5px";
+
+        snippetList.appendChild(li);
+    });
+}
+// 3. add the click listener
 saveBtn.addEventListener("click", async () => {
     const name = fileNameInput.value;
     const content = contentInput.value;
@@ -20,4 +42,10 @@ saveBtn.addEventListener("click", async () => {
     console.log("Sent to rust!");
     fileNameInput.value = "";
     contentInput.value = "";
+
+    // refresh the list immediately after saving
+    loadSnippets();
 })
+
+// 4. Load the list when app starts
+loadSnippets();

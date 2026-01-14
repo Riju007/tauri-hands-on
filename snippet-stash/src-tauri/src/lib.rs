@@ -23,12 +23,29 @@ fn save_snippet(name: String, content: String) {
         Err(e) => println!("Failed to save file: {}", e),
     }
 }
+#[tauri::command]
+fn list_snippets() -> Vec<String> {
+    let mut snippets = Vec::new();
+    let folder_path = Path::new("snippets/riju");
+    if folder_path.exists() {
+        if let Ok(entries) = fs::read_dir(folder_path) {
+            for entry in entries {
+                if let Ok(entry) = entry {
+                    if let Ok(name) = entry.file_name().into_string() {
+                        snippets.push(name);
+                    }
+                }
+            }
+        }
+    }
+    snippets
+}
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![save_snippet])
+        .invoke_handler(tauri::generate_handler![save_snippet, list_snippets])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
