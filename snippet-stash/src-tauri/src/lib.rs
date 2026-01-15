@@ -1,15 +1,28 @@
+use directories::UserDirs;
 use std::fs;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
+
+// helper function to get the storage path
+fn get_snippet_path() -> PathBuf {
+    if let Some(user_dirs) = UserDirs::new() {
+        let path = user_dirs.document_dir().unwrap().join("SnippetStash");
+        return path;
+    }
+
+    // fallback if we can't find the documents.
+    PathBuf::from("snippets")
+}
 
 #[tauri::command]
 fn save_snippet(name: String, content: String) {
     // 1. define a folder to store snippets (related to where the app runs)
-    let folder_path: &Path = Path::new("snippets/riju");
+    // let folder_path: &Path = Path::new("snippets/riju");
+    let folder_path = get_snippet_path();
 
     // 2. create the directory if it does not exists.
     // fs::create_dir_all is like `mkdir -p`
     if !folder_path.exists() {
-        let _ = fs::create_dir_all(folder_path);
+        let _ = fs::create_dir_all(&folder_path);
     }
 
     // 3. Construct the full file path
@@ -26,7 +39,8 @@ fn save_snippet(name: String, content: String) {
 #[tauri::command]
 fn list_snippets() -> Vec<String> {
     let mut snippets = Vec::new();
-    let folder_path = Path::new("snippets/riju");
+    // let folder_path = Path::new("snippets/riju");
+    let folder_path = get_snippet_path();
     if folder_path.exists() {
         if let Ok(entries) = fs::read_dir(folder_path) {
             for entry in entries {
