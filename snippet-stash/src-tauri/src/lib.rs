@@ -55,11 +55,22 @@ fn list_snippets() -> Vec<String> {
     snippets
 }
 
+#[tauri::command]
+fn read_snippet(name: String) -> String {
+    let folder_path = get_snippet_path();
+    let file_path = folder_path.join(name);
+    fs::read_to_string(file_path).unwrap_or_default()
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![save_snippet, list_snippets])
+        .invoke_handler(tauri::generate_handler![
+            save_snippet,
+            list_snippets,
+            read_snippet,
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

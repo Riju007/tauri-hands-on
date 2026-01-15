@@ -25,6 +25,11 @@ async function loadSnippets() {
         li.style.cursor = "pointer";
         li.style.padding = "5px";
 
+        li.addEventListener("click", async () => {
+            const text = await invoke("read_snippet", { "name": name })
+            fileNameInput.value = name;
+            contentInput.value = text;
+        })
         snippetList.appendChild(li);
     });
 }
@@ -36,7 +41,7 @@ saveBtn.addEventListener("click", async () => {
     // 3. call the rust backend
     // The first argument "save_snippet" matches the function name is lib.rs
     // the second argument is an object where keys match the rust arguments
-    await invoke("save_snippet", {name: name, content: content});
+    await invoke("save_snippet", { name: name, content: content });
 
     // optional: clear the inputs to show it "worked"
     console.log("Sent to rust!");
