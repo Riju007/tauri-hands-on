@@ -16,6 +16,35 @@ async function get_version() {
   versionData.textContent = version;
 }
 
+async function check_for_updates() {
+  try {
+    const { check } = window.__TAURI__.updater;
+    const { available, currentVersion, latestVersion } = await check();
+
+    if (available) {
+      versionData.textContent = `Update available! ${currentVersion} → ${latestVersion}`;
+
+      // Ask user if they want to install
+      if (confirm(`Update available: ${latestVersion}\nCurrent: ${currentVersion}\n\nInstall now?`)) {
+        const { download, install } = window.__TAURI__.updater;
+
+        versionData.textContent = "Downloading update...";
+        await download();
+
+        versionData.textContent = "Installing update...";
+        await install();
+
+        versionData.textContent = "Update installed! Restarting...";
+      }
+    } else {
+      versionData.textContent = `Already on latest version: ${currentVersion}`;
+    }
+  } catch (error) {
+    console.error("Update check failed:", error);
+    versionData.textContent = `Update check failed: ${error}`;
+  }
+}
+
 window.addEventListener("DOMContentLoaded", () => {
   greetInputEl = document.querySelector("#greet-input");
   greetMsgEl = document.querySelector("#greet-msg");
@@ -28,6 +57,10 @@ window.addEventListener("DOMContentLoaded", () => {
   versionBtn.addEventListener("click", (e) => {
     e.preventDefault();
     get_version();
+  });
+  document.querySelector("#update-button").addEventListener("click", (e) => {
+    e.preventDefault();
+    check_for_updates();
   });
 });
 
