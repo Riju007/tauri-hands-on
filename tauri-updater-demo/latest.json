@@ -1,11 +1,11 @@
 {
-    "version": "1.0.0",
+    "version": "2.0.0",
     "pub_date": "2026-02-11T00:00:00Z",
-    "notes": "Initial release",
+    "notes": "Second release",
     "platforms": {
         "windows-x86_64": {
-            "url": "https://github.com/Riju007/tauri-hands-on/releases/download/v1.0.0/tauri-updater-demo_1.0.0_x64_en-US.msi",
-            "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUdVpjb2RaUU5JY0NvU0ZOOGY4bGhXOE53R3Z2RWFhRXRJUXlGcVZHUjBnVEpqdWZSTUt2MVNKMmRrRndCN2I1N0JCQnl2TFo2NWlpY2krTU9EdW91OGFYc09Za0xnL0EwPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzcxMjYxNjg4CWZpbGU6dGF1cmktdXBkYXRlci1kZW1vXzEuMC4wX3g2NF9lbi1VUy5tc2kKM251VWtoeGlrc2pQL3BqM0xPTHNjcmpVc0hwRWF1YVlGZHdxUHlDSmxTaGhwNFJRWEhCV0QwZ0QxNXoySzI1Z3oxZVExK2V6RlQ2c3hhMEdTcENJQmc9PQo="
+            "url": "https://github.com/Riju007/tauri-hands-on/releases/download/v2.0.0/tauri-updater-demo_2.0.0_x64_en-US.msi",
+            "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUdVpjb2RaUU5JY0EwNzlCWW9OSHZQZWtSM2lxM1Q1NUgwYW1UMlZ1KytrSE5qZTNISldOUWFHdnBZWGZ2MlJBQUFIaFpDRUFqS3M0RmxsblJFbTFPbkJZQTNSK3pnc2dRPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzcxMzQ3MTUwCWZpbGU6dGF1cmktdXBkYXRlci1kZW1vXzIuMC4wX3g2NF9lbi1VUy5tc2kKNHFxUTRDV2Y0WExwQU5TRHlZWE9jdGZjcW11M0xvWWFweWxQQmpqNU9NcWdPQ3JDRW1rczVSaEZ5blprRVJJcmNYd0VzMnZwOUxhcWpGUFpLaVVXRFE9PQo="
         }
     }
 }
