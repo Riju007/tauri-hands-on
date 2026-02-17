@@ -21,7 +21,6 @@
   },
   "bundle": {
     "active": true,
-    // "targets": "all",
     "targets": "msi",
     "icon": [
       "icons/32x32.png",
